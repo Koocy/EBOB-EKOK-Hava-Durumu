@@ -1,0 +1,58 @@
+﻿.no-spinners::-webkit-outer-spin-button,
+.no-spinners::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.form-row label {
+    height: 25px;
+    width: 100px;
+    font-size: inherit;
+}
+
+#gonder {
+    height: 30px;
+    width: 100px;
+    background-color: lightgreen;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.formum {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.hd {
+    height: auto;
+    width: auto;
+    background-color: turquoise;
+    text-align: center;
+    margin-left: 20px;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hd button {
+    font-size: 20px;
+    background-color: turquoise;
+}
+
+.hd select {
+    background-color: turquoise
+}
+
+#icon {
+    height: auto;
+    width: auto;
+}
