@@ -20,6 +20,7 @@
         }
 
         .hesaplamaKismi {
+			margin-top: 20px;
             display: flex;
             flex-direction: column;
             background-color: forestgreen;
@@ -245,7 +246,6 @@
 		    }
 	    };
 
-        document.addEventListener('keydown', function (event) {
             document.getElementById("sayi1").addEventListener('input', () => {
                 if (parseInt(document.getElementById("sayi1").value) > document.getElementById("sayi1").max) {
                     document.getElementById("sayi1").value = document.getElementById("sayi1").max;
@@ -265,7 +265,6 @@
                     document.getElementById("sayi2").value = document.getElementById("sayi2").min;
                 }
             })
-        });
 
 	    function EBOBEKOKHesapla() {
 		    const d = new Date();
@@ -403,5 +402,6 @@
 
 </body>
 </html>
+
 
 
