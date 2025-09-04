@@ -1,6 +1,6 @@
 ilk JavaScript projem.
 
-iki sayının EBOB ve EKOK'unu hesaplar. Cookie'ler ile 24 saat boyunca girilen bu iki sayıyı tutarak bir sonraki işlemde yeniden yazmaya gerek kalmadan kullanabilme sağlar.
+iki sayının EBOB ve EKOK'unu hesaplar. Girilen bu iki sayıyı hafızada tutarak bir sonraki işlemde yeniden yazmaya gerek kalmadan kullanabilmeyi sağlar.
 
 81 ilin anlık hava durumlarını gösterir.
 Sistem yerel saatini gösterir.
