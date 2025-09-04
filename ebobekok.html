@@ -284,8 +284,6 @@
 
 	        let constBS = birinciSayi;
 		    let constIS = ikinciSayi;
-		
-		    let buyukSayi = 0;
 
             if (birinciSayi > ikinciSayi) { buyukSayi = birinciSayi; }
             else { buyukSayi = ikinciSayi; }
@@ -293,13 +291,13 @@
 		    let i = 2;
             let iArttirildi = false;
 
-            while (i <= buyukSayi)
+            while (i <= birinciSayi || i <= ikinciSayi)
             {
                 if (i > 2 && !iArttirildi)
                 {
                     let karekoki = Math.sqrt(i);
 
-                    for (let n = 2; n < karekoki; n++)
+                    for (let n = 2; n <= karekoki; n++)
                     {
                         if (i % n == 0)
 					    {
@@ -329,7 +327,9 @@
                     {
                         ortaklar.push(i);
 				    }
-			    }
+                }
+
+                if (birinciSayi == 1 && ikinciSayi == 1) break;
 
 			    if (!ortak1 && !ortak2)
 			    {
