@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8" />
@@ -14,18 +14,16 @@
         <div class="formum">
             <div class="hesaplamaKismi">
                 <div class="form-row">
-                    <label for="sayi1">Birinci Sayı: </label>
+                    <label for="sayi1">Birinci Sayı:</label>
                     <input type="number" id="sayi1" name="sayi1" min="0" max="9999" class="no-spinners">
                 </div>
 
                 <div class="form-row">
-                    <label for="sayi2">İkinci Sayı: </label>
+                    <label for="sayi2">İkinci Sayı:</label>
                     <input type="number" id="sayi2" name="sayi2" min="0" max="9999" class="no-spinners">
                 </div>
 
-                <div class="form-row">
-                    <button type="button" id="gonder" onclick="EBOBEKOKHesapla()">HESAPLA</button>
-                </div>
+                <button type="button" id="gonder" onclick="EBOBEKOKHesapla()">HESAPLA</button>
 
                 <div class="form-row">
                     <label>EBOB: </label>
@@ -38,7 +36,7 @@
                 </div>
             </div>
 
-            <div id="havaDurumu_div" class="hd">
+            <div class="hd">
                 <select id="sehirSec">
                     <option value="izmir">İzmir</option>
                     <option value="adana">Adana</option>
@@ -124,7 +122,7 @@
                 </select>
                 <label id="sehir">Yükleniyor...</label>
                 <label id="sicaklik">Yükleniyor...</label>
-                <button type="button" id="yinele" onclick="fetchWeather()">YİNELE</button>
+                <button type="button" id="yinele" onclick="havaDurumunuAl()">YİNELE</button>
                 <img id="icon">
                 <label id="saat">Yükleniyor...</label>
             </div>
@@ -196,9 +194,8 @@
 		    document.cookie = "sayi1c=" + document.getElementById("sayi1").value + "; expires=" + d.toUTCString() + "; path=/";
 		    document.cookie = "sayi2c=" + document.getElementById("sayi2").value + "; expires=" + d.toUTCString() + "; path=/";
 		
-		    let isAsal = true, ortak1 = false, ortak2 = false;
+		    let iAsaldir = true, ortak1 = false, ortak2 = false;
 		    const ortaklar = [];
-		    let indexer = 0;
 
 		    let birinciSayi = parseInt(document.getElementById("sayi1").value, 10);
 	        let ikinciSayi = parseInt(document.getElementById("sayi2").value, 10);
@@ -211,21 +208,23 @@
 	        let constBS = birinciSayi;
 		    let constIS = ikinciSayi;
 		
-		    let length = 0;
+		    let buyukSayi = 0;
 
-		    if (birinciSayi > ikinciSayi) {length = birinciSayi;}
-		    else {length = ikinciSayi;}
+            if (birinciSayi > ikinciSayi) { buyukSayi = birinciSayi; }
+            else { buyukSayi = ikinciSayi; }
 
 		    let i = 2;
             let iArttirildi = false;
 
-		    while (i <= length)
+            while (i <= buyukSayi)
             {
                 if (i > 2 && !iArttirildi)
-			    {
-				    for (let n = 2; n < i; n++)
-				    {
-					    if (i % n == 0)
+                {
+                    let karekoki = Math.sqrt(i);
+
+                    for (let n = 2; n < karekoki; n++)
+                    {
+                        if (karekoki % n == 0)
 					    {
 						    isAsal = false;
 						    break;
@@ -233,7 +232,7 @@
 				    }
 			    }
 		
-			    if (isAsal)
+			    if (iAsaldir)
                 {
                     iArttirildi = false;
 
@@ -250,9 +249,8 @@
 				    }
 
 				    if (ortak1 && ortak2)
-				    {
-					    ortaklar[indexer] = i;
-					    indexer = indexer + 1;
+                    {
+                        ortaklar.push(i);
 				    }
 			    }
 
@@ -262,11 +260,11 @@
                     iArttirildi = true;
 			    }
 
-			    isAsal = true; ortak1 = false; ortak2 = false;
+			    iAsaldir = true; ortak1 = false; ortak2 = false;
 		    }
 
-		    let EBOB = 1;
-		    for (let z = 0; z < indexer; z++)
+            let EBOB = 1;
+            for (let z = 0; z < ortaklar.length; z++)
 		    {
 			    EBOB = EBOB * ortaklar[z];
 		    }
@@ -279,28 +277,40 @@
 
         let sehir = "izmir";
 
-        function fetchWeather() {
+        async function havaDurumunuAl() {
             const apiURL = "https://api.weatherapi.com/v1/current.json?q=" + sehir + "&key=8e3a2daa05c44f18974195952253008";
 
-            fetch(apiURL)
-                .then(res => res.json())
-                .then(data => {
-                    const sehirDisplay = document.getElementById("sehirSec").options[document.getElementById("sehirSec").selectedIndex].text;
-                    const sicaklik = data.current.temp_c;
-                    const iconURL = "https:" + data.current.condition.icon;
+            try {
+                let cevap = await fetch(apiURL);
+                if (!cevap.ok) throw new Error(cevap.status)
+                let veriJSON = await cevap.json();
 
-                    document.getElementById("sehir").innerHTML = "Şehir: " + sehirDisplay;
-                    document.getElementById("sicaklik").innerHTML = "<br>Sıcaklık: " + sicaklik + "°C";
-                    document.getElementById("icon").src = iconURL;
-                })
+                const sehirDisplay = document.getElementById("sehirSec").options[document.getElementById("sehirSec").selectedIndex].text;
+
+                const sicaklik = veriJSON.current.temp_c;
+                const iconURL = "https:" + veriJSON.current.condition.icon;
+
+                document.getElementById("sehir").innerHTML = "Şehir: " + sehirDisplay;
+                document.getElementById("sicaklik").innerHTML = "<br>Sıcaklık: " + sicaklik + "°C";
+                document.getElementById("icon").src = iconURL;
+            }
+
+            catch(error)
+            {
+                document.getElementById("sehir").innerHTML = "";
+                document.getElementById("sicaklik").innerHTML = "Hava durumu alınamadı.";
+                document.getElementById("icon").src = "";
+
+                console.error(error);
+            }
         }
 
-        fetchWeather();
+        havaDurumunuAl();
 
         document.getElementById("sehirSec").addEventListener("change", function() {
             sehir = this.value;
 
-            fetchWeather();
+            havaDurumunuAl();
         });
 
         function zamaniGoster() {
