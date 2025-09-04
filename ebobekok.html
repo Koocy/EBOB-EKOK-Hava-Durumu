@@ -20,11 +20,11 @@
         }
 
         .hesaplamaKismi {
-			margin-top: 20px;
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
             background-color: forestgreen;
-			margin-bottom: 20px;
+            margin-bottom: 20px;
         }
 
         .form-row {
@@ -70,7 +70,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-			margin-top: 20px;
+            margin-top: 20px;
         }
 
         .hd button {
@@ -91,7 +91,6 @@
 </head>
 
 <body>
-	<form>
         <div class="formum">
             <div class="hesaplamaKismi">
                 <div class="form-row">
@@ -208,10 +207,29 @@
                 <label id="saat">Yükleniyor...</label>
             </div>
         </div>
-
-	</form>
 	
 	<script>
+
+        document.getElementById("sayi1").addEventListener('input', () => {
+            if (parseInt(document.getElementById("sayi1").value) > document.getElementById("sayi1").max) {
+                document.getElementById("sayi1").value = document.getElementById("sayi1").max;
+            }
+
+            if (parseInt(document.getElementById("sayi1").value) < document.getElementById("sayi1").min) {
+                document.getElementById("sayi1").value = document.getElementById("sayi1").min;
+            }
+        })
+
+        document.getElementById("sayi2").addEventListener('input', () => {
+            if (parseInt(document.getElementById("sayi2").value) > document.getElementById("sayi2").max) {
+                document.getElementById("sayi2").value = document.getElementById("sayi2").max;
+            }
+
+            if (parseInt(document.getElementById("sayi2").value) < document.getElementById("sayi2").min) {
+                document.getElementById("sayi2").value = document.getElementById("sayi2").min;
+            }
+        })
+
 		function getCookie(cname) {
   			let name = cname + "=";
   			let decodedCookie = decodeURIComponent(document.cookie);
@@ -245,26 +263,6 @@
 		    	document.getElementById("sayi2").value = parseInt(sayi2cookie, 10);
 		    }
 	    };
-
-            document.getElementById("sayi1").addEventListener('input', () => {
-                if (parseInt(document.getElementById("sayi1").value) > document.getElementById("sayi1").max) {
-                    document.getElementById("sayi1").value = document.getElementById("sayi1").max;
-                }
-
-                if (parseInt(document.getElementById("sayi1").value) < document.getElementById("sayi1").min) {
-                    document.getElementById("sayi1").value = document.getElementById("sayi1").min;
-                }
-            })
-
-            document.getElementById("sayi2").addEventListener('input', () => {
-                if (parseInt(document.getElementById("sayi2").value) > document.getElementById("sayi2").max) {
-                    document.getElementById("sayi2").value = document.getElementById("sayi2").max;
-                }
-
-                if (parseInt(document.getElementById("sayi2").value) < document.getElementById("sayi2").min) {
-                    document.getElementById("sayi2").value = document.getElementById("sayi2").min;
-                }
-            })
 
 	    function EBOBEKOKHesapla() {
 		    const d = new Date();
@@ -402,6 +400,3 @@
 
 </body>
 </html>
-
-
-
