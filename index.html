@@ -209,7 +209,7 @@
                 </select>
                 <label id="sehir">Yükleniyor...</label>
                 <label id="sicaklik">Yükleniyor...</label>
-                <button type="button" id="yinele" onclick="havaDurumunuAl()">YİNELE</button>
+                <button type="button" onclick="havaDurumunuAl()">YENİLE</button>
                 <img id="icon">
                 <label id="saat">Yükleniyor...</label>
             </div>
@@ -257,9 +257,6 @@
 
 	        let constBS = birinciSayi;
 		    let constIS = ikinciSayi;
-
-            if (birinciSayi > ikinciSayi) { buyukSayi = birinciSayi; }
-            else { buyukSayi = ikinciSayi; }
 
 		    let i = 2;
             let iArttirildi = false;
